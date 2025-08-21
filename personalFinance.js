@@ -1,2 +1,2 @@
 // Store all Expenses
-let expen
+let Expense
