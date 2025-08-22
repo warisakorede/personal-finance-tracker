@@ -5,12 +5,13 @@ function formatAmount(amount) {
   return amount.toLocaleString();
 }
 
-function addExpense(description, amount, category) {
+function addExpense(description, amount, category, date = new Date().toISOString().slice(0,10)) {
   const expense = {
     id: id++,
     description,
     amount,
-    category
+    category,
+    date
   }
   expenses.push(expense)
   console.log(`Expense added: ${description} - ${formatAmount(amount)} [${category}]`)
@@ -38,6 +39,14 @@ function filterExpenses(category) {
   })
 }
 
+function filterExpensesByDate(date) {
+  let filtered = expenses.date(expense => expense.date === date)
+
+  filtered.forEach(expense => {
+    console.log(`${date} Expenses: ${expense.id} - ${expense.description} - ${formatAmount(expense.amount)}`)
+  })
+}
+
 function deleteExpense(id) {
   for (let i = 0; i < expenses.length; i++) {
     if (expenses[i].id === id) {
@@ -46,20 +55,6 @@ function deleteExpense(id) {
     }
   }
 }
-
-
-// function editExpense(id, newDescription, newAmount, newCategory) {
-//   for (let i = 0; i < expenses.length; i++) {
-//     if (expenses[i] = {
-//       id: id,
-//       description: newDescription,
-//       amount: newAmount,
-//       category: newCategory
-//     });
-//     console.log(`Expense with ID ${id} has been edited`);
-//     break;
-//   }
-// }
 
 function editExpense(id, newDescription, newAmount, newCategory) {
   for (let i = 0; i < expenses.length; i++) {
@@ -74,13 +69,14 @@ function editExpense(id, newDescription, newAmount, newCategory) {
 
 }
 
-
-
-
 addExpense("Amala", 2300, "Food");
 addExpense("Fish", 2300, "Food");
 addExpense("Amala", 2300, "Food");
+addExpense("Fish", 2300, "Food");
+addExpense("Fish", 2300, "Food");
 
 getTotalExpenses()
 editExpense(2, "Beef", 4744, "Food");
+filterExpenses("food")
+deleteExpense(2)
 listExpenses();
