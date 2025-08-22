@@ -5,7 +5,7 @@ function formatAmount(amount) {
   return amount.toLocaleString();
 }
 
-function addExpense(description, amount, category, date = new Date().toISOString().slice(0,10)) {
+function addExpense(description, amount, category, date = new Date().toISOString().slice(0, 10)) {
   const expense = {
     id: id++,
     description,
@@ -40,7 +40,7 @@ function filterExpenses(category) {
 }
 
 function filterExpensesByDate(date) {
-  let filtered = expenses.date(expense => expense.date === date)
+  let filtered = expenses.filter(expense => expense.date === date)
 
   filtered.forEach(expense => {
     console.log(`${date} Expenses: ${expense.id} - ${expense.description} - ${formatAmount(expense.amount)}`)
@@ -69,14 +69,15 @@ function editExpense(id, newDescription, newAmount, newCategory) {
 
 }
 
-addExpense("Amala", 2300, "Food");
-addExpense("Fish", 2300, "Food");
-addExpense("Amala", 2300, "Food");
-addExpense("Fish", 2300, "Food");
-addExpense("Fish", 2300, "Food");
+addExpense("Dettol", 500, "Skin care", "2025-08-22");
+addExpense("Amala", 5000, "Food", "2025-08-22");
+addExpense("Books", 10000, "Stationery", "2025-08-22");
+addExpense("Fried Chicken", 7000, "Food", "2025-08-23");
+addExpense("Egg", 500, "Food", "2025-08-23");
 
 getTotalExpenses()
 editExpense(2, "Beef", 4744, "Food");
 filterExpenses("food")
 deleteExpense(2)
 listExpenses();
+filterExpensesByDate("2025-08-22")
